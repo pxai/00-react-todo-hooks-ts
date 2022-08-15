@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Task = ({task}) => {
+const Task = ({task, handleUpdate, handleDelete}) => {
     const [edit, setEdit] = useState(false);
     const [taskValue, setTaskValue] = useState(task.name);
 
@@ -8,13 +8,13 @@ const Task = ({task}) => {
         setEdit(true);
     };
 
-    const handleSave = () => {
-        // call save ({task.id, taskValue})
+    const save = () => {
+        handleUpdate({id: task.id, name: taskValue});
         setEdit(false);
     };
 
-    const handleDelete = () => {
-        // call function to delete
+    const deleteTask = () => {
+        handleDelete(task.id);
     };
 
     const setTask = (event) => {
@@ -25,13 +25,13 @@ const Task = ({task}) => {
         edit ?
             <div>
                 <input type="text" value={taskValue} onChange={setTask}/>
-                <button onClick={handleSave}>Save</button>
+                <button onClick={save}>Save</button>
             </div>
         :   <div>
                 {task.id}
                 {task.name}
                 <button onClick={handleEdit}>Edit</button>
-                <button onClick={handleDelete}>Edit</button>
+                <button onClick={deleteTask}>Delete</button>
             </div>
     )
 };
