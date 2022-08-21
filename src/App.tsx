@@ -2,13 +2,13 @@ import { useState, useCallback, useMemo, useEffect } from 'react';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
 import TaskSearchForm from './TaskSearchForm';
-import tasks from './initialTasks';
+import {Task, tasks} from './initialTasks';
 import './App.css';
 
 
 function App() {
-  const [taskList, setTaskList] = useState(tasks);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [taskList, setTaskList] = useState<Task[]>(tasks);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const printTaskList = useCallback(() => {
     console.log("Changed List: ", taskList)
@@ -18,21 +18,21 @@ function App() {
     printTaskList();
   }, [taskList, printTaskList])
 
-  const handleDelete = useCallback((id) => {
+  const handleDelete = useCallback((id: number) => {
     const changedList = taskList.filter(task => task.id !== id);
     setTaskList(changedList);
   }, [taskList]);
 
-  const handleUpdate = useCallback((updatedTask)=> {
+  const handleUpdate = useCallback((updatedTask: Task)=> {
     const changedList = taskList.filter(task => task.id !== updatedTask.id);
     setTaskList([...changedList, updatedTask]);
   }, [taskList]);
 
-  const handleCreate = useCallback((name) => {
+  const handleCreate = useCallback((name: string) => {
     setTaskList([...taskList, {id: Math.round(10000 * Math.random()), name}]);
   }, [taskList]);
 
-  const handleSearch = (name) => {
+  const handleSearch = (name: string) => {
     setSearchTerm(name);
   };
 

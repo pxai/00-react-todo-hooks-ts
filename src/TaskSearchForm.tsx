@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
-const TaskSearchForm = ({handleSearch}) => {
-    const [taskValue, setTaskValue] = useState('');
+type TaskSearchProps = {
+    handleSearch: (value: string) => void;
+};
+
+const TaskSearchForm = ({handleSearch}: TaskSearchProps) => {
+    const [taskValue, setTaskValue] = useState<string>('');
     const onSearch = () => {
         handleSearch(taskValue);
     };
@@ -11,8 +15,8 @@ const TaskSearchForm = ({handleSearch}) => {
         handleSearch('');
     };
 
-    const handleSave = (e) => {
-        setTaskValue(e.target.value);
+    const handleSave = (event: ChangeEvent<HTMLInputElement>) => {
+        setTaskValue(event.target.value);
     };
 
     return (
@@ -20,7 +24,7 @@ const TaskSearchForm = ({handleSearch}) => {
             <input type="text" value={taskValue} onChange={handleSave} />
             <button onClick={onSearch}>Search for task</button>
             <button onClick={onReset}>Reset</button>
-        </div>
+        </div>  
     );
 };
 

@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
+import { Task as Tasktype } from './initialTasks';
 
-const Task = ({task, handleUpdate, handleDelete}) => {
-    const [edit, setEdit] = useState(false);
-    const [taskValue, setTaskValue] = useState(task.name);
+type TaskProps = {
+    task: Tasktype;
+    handleUpdate: (task: Tasktype) => void;
+    handleDelete: (id: number) => void;
+};
+const Task = ({task, handleUpdate, handleDelete}: TaskProps) => {
+    const [edit, setEdit] = useState<Boolean>(false);
+    const [taskValue, setTaskValue] = useState<string>(task.name);
 
     const handleEdit = () => {
         setEdit(true);
@@ -17,7 +23,7 @@ const Task = ({task, handleUpdate, handleDelete}) => {
         handleDelete(task.id);
     };
 
-    const setTask = (event) => {
+    const setTask = (event: ChangeEvent<HTMLInputElement>) => {
         setTaskValue(event.target.value);
     };
 

@@ -1,6 +1,13 @@
 import Task from "./Task";
+import { Task as Tasktype } from './initialTasks';
 
-const TaskList = ({tasks, handleDelete, handleUpdate}) => {
+type TaskListProps = {
+    tasks: Tasktype[];
+    handleDelete: (id: number) => void;
+    handleUpdate: (task: Tasktype) => void;
+}
+
+const TaskList = ({tasks, handleDelete, handleUpdate}: TaskListProps) => {
     return (
         <div>
             <h1>Tasks</h1>
